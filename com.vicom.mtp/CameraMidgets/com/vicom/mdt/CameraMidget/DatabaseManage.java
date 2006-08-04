@@ -12,8 +12,7 @@ import com.vicom.mdt.Configer;
 public class DatabaseManage {
 	
 	private static 	Statement	statement = ConnectToDatabase();
-	//private	static	Date	date = new Date(System.currentTimeMillis());
-	Timestamp date = new Timestamp(0);
+	private Timestamp date = new Timestamp(0);
 
 	private synchronized static Statement ConnectToDatabase(){
 		try{
@@ -23,7 +22,7 @@ public class DatabaseManage {
 				//s.execute("drop table GPSDBS");
 				//s.execute("create table GPSDBS(identify varchar(20) NOT NULL, datetime DATE, latitude DOUBLE , longitude DOUBLE)");
 				
-				s.execute("create table IMGS(identify varchar(20) NOT NULL, img BLOB)");
+				s.execute("create table IMGS(identify varchar(20) NOT NULL, logtime TIMESTAMP, img BLOB)");
 			}catch(SQLException se){
 				se.printStackTrace();
 				//可能这个表已经建好了。
@@ -34,7 +33,7 @@ public class DatabaseManage {
 				//s.execute("drop table GPSDBS");
 				//s.execute("create table GPSDBS(identify varchar(20) NOT NULL, datetime DATE, latitude DOUBLE , longitude DOUBLE)");
 				
-				s.execute("create table GPSDBS(identify varchar(20) NOT NULL, datetime TIMESTAMP, latitude DOUBLE , longitude DOUBLE)");
+				s.execute("create table GPSDBS(id INT generated always as identity, identify varchar(20) NOT NULL, datetime TIMESTAMP, latitude DOUBLE , longitude DOUBLE)");
 			}catch(SQLException se){
 				//se.printStackTrace();
 				//可能这个表已经建好了。
@@ -49,7 +48,7 @@ public class DatabaseManage {
 	
 	public synchronized void storeImage(CameraMidget midget, byte[] img){
 		if( statement == null ) return;
-		String sql = "insert into IMGS(identify,img) values ('" + midget.getMidgetIdentify() + "',?)"; 
+		String sql = "insert into IMGS(identify, logtime ,img) values ('" + midget.getMidgetIdentify() + "',CURRENT_TIMESTAMP,?)"; 
 		  try {
 			PreparedStatement pstmt = statement.getConnection().prepareStatement(sql);
 			pstmt.setBytes(1, img);
@@ -86,7 +85,7 @@ public class DatabaseManage {
 		int maxDatas = 0;
 //		 read data
 //		String sql_readData ="SELECT TOP 10 datetime,latitude,longitude FROM GPSDBS where identify = '"+ identify + "'";
-		String sql_readData ="SELECT datetime,latitude,longitude FROM GPSDBS where identify = '"+ identify + "' order by datetime desc";
+		String sql_readData ="SELECT datetime,latitude,longitude FROM GPSDBS where identify = '"+ identify + "' order by id desc";
 		try{
 			ResultSet rset = statement.executeQuery( sql_readData );
 			while( rset.next()){
