@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %plugin.MDT.name
+Bundle-SymbolicName: com.vicom.mdt; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: com.vicom.mdt.MobileDeviceTotoalPlugin
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.draw2d
+Eclipse-AutoStart: true
+Export-Package: com.vicom.mdt;version="0.0.1",
+ com.vicom.mdt.Presenter,
+ com.vicom.mdt.SystemMidget,
+ com.vicom.mdt.event,
+ com.vicom.mdt.internal;x-internal:=true,
+ com.vicom.mdt.views,
+ com.vicom.mdt.views.PhotoView,
+ com.vicom.mdt.views.browser
+Bundle-ClassPath: libs/derby.jar,
+ .

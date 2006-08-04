@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="GB2312"?>
+<?eclipse version="3.1"?>
+<plugin>
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.vicom.mdt.internal.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.vicom.mdt.MobileDeviceTotalPerspective"
+            fixed="true"
+            icon="icons/devicecontrol.gif"
+            id="com.vicom.mdt.MobileDeviceTotalPerspective"
+            name="管理控制">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            category="MobileTotal"
+            class="com.vicom.mdt.views.browser.TableListBrowserView"
+            icon="icons/devicelist.gif"
+            id="com.vicom.mdt.views.browser.TableListBrowserView"
+            name="设备列表">
+      </view>
+      <view
+            allowMultiple="false"
+            category="MobileTotal"
+            class="com.vicom.mdt.test.browser.BrowserView"
+            icon="icons/test_browser.gif"
+            id="com.vicom.mdt.test.browser.BrowserView"
+            name="设备模拟（HTTP）"/>
+      <view
+            allowMultiple="false"
+            class="com.vicom.mdt.views.AttributeView"
+            icon="icons/devicelist.gif"
+            id="com.vicom.mdt.views.AttributeView"
+            name="属性"/>
+      <view
+            allowMultiple="false"
+            category="MobileTotal"
+            class="com.vicom.mdt.views.PhotoView.SimplePhotoView"
+            icon="icons/test_browser.gif"
+            id="com.vicom.mdt.views.PhotoView.SimplePhotoView"
+			name="简单图片监控"/>
+   </extension>
+   <extension
+         id="20060720"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.vicom.mdt.application"
+            name="Mobile Total Plateform">
+         <property
+               name="aboutText"
+               value="成都中联Mobile Total平台"/>
+      </product>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.vicom.mdt.application"
+            name="Mobile Total Plateform">
+         <property
+               name="aboutText"
+               value="成都中联Mobile Total平台"/>
+      </product>
+   </extension>
+   <extension
+         id="20060803"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.vicom.mdt.application"
+            name="Mobile Total Plateform">
+         <property
+               name="aboutText"
+               value="成都中联Mobile Total平台"/>
+      </product>
+   </extension>
+</plugin>

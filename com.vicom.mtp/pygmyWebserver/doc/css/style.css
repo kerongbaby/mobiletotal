@@ -1,0 +1,17 @@
+body {background-color:#FFFFFF;}
+.modlc {background-image:url(lc.gif);}
+.modhead{background-image:url(mid_grad.gif);height:24;width:100%;font-weight:bold;padding:2px 3px 2px 3px;}
+.header{height:24}
+.ellipse{text-overflow:ellipsis;overflow:hidden;}
+.line {background-color: #cccccc;height:1; width:100%;}
+td, .whiterow {background-color:#ffffff}
+.bluerow td{background-color: #f7f9fd}
+.partsmb {border:1px solid #B1C3ED}
+.title td {padding:0 3 2 3;vertical-align:bottom;}
+.bluerow td, .whiterow td{padding:4 3 2 3; vertical-align:bottom;}
+.fixedTable{table-layout:fixed}
+td, th{font-size:9pt}
+table, td{margin:0px;padding:0px;}
+body, div,span,p,td,th,textarea,button{margin:0;padding:0;font-family:Simsun,Tahoma,Helvetica,Sans-Serif;}
+.bluerow2 {	BACKGROUND-COLOR: #f7f9fd}
+
