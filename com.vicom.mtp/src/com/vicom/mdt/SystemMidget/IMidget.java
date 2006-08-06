@@ -1,8 +1,8 @@
 package com.vicom.mdt.SystemMidget;
 
 import org.eclipse.swt.graphics.Image;
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.Presenter.AbstractPresenter;
+import com.vicom.mdt.event.MobileTotalAttribute;
 
 public interface IMidget {
 	
@@ -65,5 +65,11 @@ public interface IMidget {
 	 * @return
 	 */
 	public Image	getMidgetIcon();
+
+	/**
+	 * 表明该Midget是系统服务还是设备驱动。
+	 * @return
+	 */
+	public boolean isSystemMidget();
 	
 }

@@ -12,6 +12,13 @@ import com.vicom.mdt.SystemMidget.IMidget;
 import com.vicom.mdt.event.MobileTotalEvent;
 import com.vicom.mdt.event.MobileTotaEventPool;
 
+/**
+ * 该类管理整个Mobile Total Platform的事件分发机制。
+ * 事件的执行针对每一个注册了的Presenter，并利用这些注册的Presenter的Display的线程执行，以避免显示的Widget与Presenter是同一个线程而造成的编程
+ * 上的麻烦。
+ * @author ycwang
+ *
+ */
 public class MobileDeviceTotal {
 	
 	public final static String ID = "MobileDeviceTotal"; 
@@ -55,7 +62,7 @@ public class MobileDeviceTotal {
 	}
 	
 	// FIXME: 需要更好的处理方法处理header的连接问题，特别是同步问题。
-	void fireMidgetChange(MobileTotalEvent e){
+	synchronized void fireMidgetChange(MobileTotalEvent e){
 		
 		synchronized(Listerners){
 			Iterator i = Listerners.iterator();

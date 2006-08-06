@@ -7,8 +7,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.Presenter.AbstractPresenter;
+import com.vicom.mdt.event.MobileTotalAttribute;
 
 /**
  * 这是一个伪目标，目的是让Presenter在关注事件流动中，能够准确地定位自己感兴趣的事件，并完成相应的处理。

@@ -8,8 +8,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.Presenter.AbstractPresenter;
+import com.vicom.mdt.event.MobileTotalAttribute;
 import com.vicom.mdt.event.MobileTotalEvent;
 import com.vicom.mdt.event.MobileTotaEventPool;
 

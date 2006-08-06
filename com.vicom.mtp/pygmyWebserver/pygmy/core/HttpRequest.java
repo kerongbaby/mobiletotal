@@ -111,19 +111,22 @@ public class HttpRequest extends Request{
 				while(true){
 					String length = stream.readline();
 					if("".equals(length))length = stream.readline();
-					int chu = 0;
+					int chunkLength = 0;
 					try{
-					chu = Integer.parseInt(length,16);
+						chunkLength = Integer.parseInt(length,16);
 					}catch(Exception e){
 						e.printStackTrace();
 					}
-					if(chu == 0){
+					//如果这个chunk的数据长度为0，表明数据已经传输完成。
+					if(chunkLength == 0){
 						int total = 0;
 						Iterator i = chunkeddatas.iterator();
+						// 计算数据的总长度。
 						while( i.hasNext() ){
 							byte[] t = (byte[])i.next();
 							total += t.length;
 						}
+						// 把各个分割的数据组织成整体。
 						postData = new byte[total];
 						i = chunkeddatas.iterator();
 						total = 0;
@@ -135,11 +138,13 @@ public class HttpRequest extends Request{
 						chunkeddatas.removeAllElements();
 						return;
 					}
-					byte[] temp = new byte[chu];
+					
+					// 把这个区段的数据记录下来，并放置在Vector中。
+					byte[] temp = new byte[chunkLength];
 					while(true){
 						int len = 0;
-						len += stream.read(temp);
-						if( len ==chu ){
+						len += stream.read(temp,len,(chunkLength-len));
+						if( len == chunkLength ){
 							chunkeddatas.add(temp);
 							break;
 						}

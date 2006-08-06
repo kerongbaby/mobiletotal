@@ -94,10 +94,6 @@ public abstract class AbstractPresenter implements IPresenter {
 	 */
 	public abstract		void processEventDestination(MobileTotalEvent e);
 
-	// 获取这个Presenter用于展现Midget的平台。
-	public abstract 	Object getPaper();
-
-	
 	/**
 	 * 本视图需要更新时候的方法。 
 	 */

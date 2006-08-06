@@ -1,6 +1,5 @@
 package com.vicom.mdt.internal;
 
-//import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
@@ -30,7 +29,6 @@ public class MobileTotalPlatformWorkbenchWindowAdvisor extends WorkbenchWindowAd
 	    PlatformUI.getPreferenceStore().setDefault(IWorkbenchPreferenceConstants.DOCK_PERSPECTIVE_BAR, IWorkbenchPreferenceConstants.TOP_RIGHT);
 	    // Show the curvy view tabs
 	    PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS, false);
-		//configurer.setTitle("无线终端管理");
 	}
 
 }

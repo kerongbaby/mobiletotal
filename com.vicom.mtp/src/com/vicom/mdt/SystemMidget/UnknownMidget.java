@@ -1,10 +1,11 @@
 package com.vicom.mdt.SystemMidget;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.Presenter.AbstractPresenter;
+import com.vicom.mdt.event.MobileTotalAttribute;
 
 public class UnknownMidget extends AbstractMidget  {
 	long dataupdatetimes = 0;
@@ -45,28 +46,21 @@ public class UnknownMidget extends AbstractMidget  {
 		}
 		
 	}
-	// TODO:
-	// 完成在三个视图中的显示.
-	Canvas scenseCanvas;
+
+	Canvas scenseCanvas = null;
 	int pos;
 	public synchronized void showInSceneView(AbstractPresenter presenter){
 		if( image == null || image.isDisposed())return;
-		Canvas canvas = (Canvas)presenter.getPaper();
-		if(canvas.isDisposed()) return;
+		if( scenseCanvas == null ){
+			scenseCanvas  = new Canvas(presenter.composite,SWT.NONE);
+		}
 		pos = selectEmpty();
 		timeStamp[pos] = System.currentTimeMillis();
-		scenseCanvas = canvas;
-		canvas.getDisplay().asyncExec(new Runnable() {
-            public void run() {
-            	if( scenseCanvas.isDisposed() ) return;
-            	if( image == null ) return;
-            	GC gc = new GC(scenseCanvas);
-           		gc.drawImage(image,0,0,image.getBounds().width,image.getBounds().height,(pos * 330),0,image.getBounds().width,image.getBounds().height);
-           		String label = identify + " 位置：" + (position == null ? "没有提供" : position.toString()); 
-           		gc.drawText( label, (pos *330 + 10 ), 10 );
-           		gc.dispose();
-            }
-	  });
+		GC gc = new GC(scenseCanvas);
+		gc.drawImage(image,0,0,image.getBounds().width,image.getBounds().height,(pos * 330),0,image.getBounds().width,image.getBounds().height);
+		String label = identify + " 位置：" + (position == null ? "没有提供" : position.toString()); 
+		gc.drawText( label, (pos *330 + 10 ), 10 );
+		gc.dispose();
 	}
 
 	public boolean isSystemMidget() {

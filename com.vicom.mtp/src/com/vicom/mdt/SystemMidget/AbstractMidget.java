@@ -26,9 +26,6 @@ public abstract class AbstractMidget implements IMidget{
 		MobileTotaEventPool.putEvent(event);
 	}
 	
-	public abstract boolean isSystemMidget();
-	
-	
 	public String getMidgetIdentify() {
 		return identify;
 	}
@@ -48,7 +45,7 @@ public abstract class AbstractMidget implements IMidget{
 		// 将该Midget纳入Midget管理链。
 		Midgets.put(identify,this);
 
-		// 宣告一个新的Midget已经创建。
+		// 宣告一个新的Midget已经创建。宣告者是Midget自身，宣告目标是系统监控服务。
 		MobileTotalEvent event = new MobileTotalEvent(this,baseAttributeGuardMidget.getInstance(),MobileTotalEvent.NEW_MIDGET,null);
 		MobileTotaEventPool.putEvent(event);
 	}
@@ -57,7 +54,7 @@ public abstract class AbstractMidget implements IMidget{
 		// 将该Midget移除Midge管理链。
 		Midgets.remove(identify);
 
-		// 宣告本Midget已经移出。
+		// 宣告本Midget已经移出。宣告者是Midget自身，宣告目标是系统监视服务。
 		
 		MobileTotalEvent event = new MobileTotalEvent(this,baseAttributeGuardMidget.getInstance(),MobileTotalEvent.REMOVE_MIDGET,null);
 		MobileTotaEventPool.putEvent(event);
@@ -76,10 +73,6 @@ public abstract class AbstractMidget implements IMidget{
 	public synchronized void setValue(String fieldName, Object object) throws Exception {
 		setValue( getFiled(fieldName) , object );
 	}
-	
-	
-
-	
 	
 	public void showInAttributeView(AbstractPresenter presenter) {
 	}

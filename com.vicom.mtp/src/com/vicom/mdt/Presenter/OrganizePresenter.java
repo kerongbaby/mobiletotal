@@ -11,10 +11,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.SystemMidget.AbstractMidget;
 import com.vicom.mdt.SystemMidget.IMidget;
 import com.vicom.mdt.SystemMidget.baseAttributeGuardMidget;
+import com.vicom.mdt.event.MobileTotalAttribute;
 import com.vicom.mdt.event.MobileTotalEvent;
 import com.vicom.mdt.views.IMobileTotalView;
 import com.vicom.mdt.event.MobileTotaEventPool;

@@ -9,14 +9,14 @@ import javax.microedition.io.HttpConnection;
 
 public class ConnectionRunnable implements Runnable {
     protected Server server;
-    protected Connection connection;
+    protected SocketConnection connection;
     protected Hashtable config;
     protected static Timer timer;
     protected ConnectionMonitor monitor;
     static{
     	timer = new Timer();
     }
-    public ConnectionRunnable(Server aServer, Connection aConnection, Hashtable aConnectionConfig ) {
+    public ConnectionRunnable(Server aServer, SocketConnection aConnection, Hashtable aConnectionConfig ) {
         this.server = aServer;
         this.connection = aConnection;
         this.config = aConnectionConfig;
@@ -29,6 +29,7 @@ public class ConnectionRunnable implements Runnable {
         	monitor = new ConnectionMonitor();
         	timer.schedule(monitor, 40000);
             HttpRequest request = createRequest();
+            request.putProperty("UserHostAddress", connection.sock.getInetAddress().toString());
             HttpResponse response = new HttpResponse( request, server.getResponseListeners() );
             if( !server.post( request, response ) ) {
             	response.sendError( HttpConnection.HTTP_NOT_FOUND, " 未在服务器中找到" );

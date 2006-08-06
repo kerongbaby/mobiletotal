@@ -26,31 +26,32 @@ public class Attributes {
 		attributeListItem = createTableItem(AttributeTableFolder, "基本属性", new CameraBaseAttributeTable(AttributeTableFolder, midget));
 		HistoryImagesItem = createTableItem(AttributeTableFolder, "历史图像", new CameraHistoryImagesGroup(AttributeTableFolder, midget));
 
-
 		// 当选择特定的TabItem的时候,更新改Item的数据。
 		AttributeTableFolder.addListener(SWT.Selection,new Listener(){
 			public void handleEvent(Event event) {
 				update();
 			}
 	    });
-		
-		
-		
+
 		AttributeTableFolder.layout(true);
 		presenter.composite.layout(true);
-		
 	}
+
+	// 更新属性中的数据。
 	public void update(){
 		if( attributeListItem != null){
 			CameraBaseAttributeTable ct = (CameraBaseAttributeTable)attributeListItem.getControl();
+			if( ct == null || ct.isDisposed()) return;
 			ct.update();
 		}
 		if( HistoryImagesItem != null ){
 			CameraHistoryImagesGroup ct = (CameraHistoryImagesGroup)HistoryImagesItem.getControl();
+			if( ct == null || ct.isDisposed()) return;
 			ct.update();
 		}
 	}
 	
+	// 不再需要显示属性了，取消这些显示控件。
 	public void dispose(){
 		if(attributeListItem !=null){
 			attributeListItem.dispose();

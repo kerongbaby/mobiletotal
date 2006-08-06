@@ -61,7 +61,6 @@ public class DerbyConnect {
 	
 	public synchronized static boolean startupDerby(){
 		if( databaseStarted ) return true;
-		System.out.println("SimpleApp starting");
 		try {
 			/*
 			 The driver is installed by loading its class.
@@ -106,13 +105,15 @@ public class DerbyConnect {
 	
 	static void testDerby() {
 		if( !databaseStarted ) return;
+		Statement s = null;
+		Connection conn = null;
 		try{
-			Connection conn = getConnection();
+			 conn = getConnection();
 			/*
 			 Creating a statement lets us issue commands against
 			 the connection.
 			 */
-			Statement s = conn.createStatement();
+			s = conn.createStatement();
 
 			/*
 			 We create a table, add a few rows, and update one.
@@ -167,14 +168,12 @@ public class DerbyConnect {
 			 We release the result and statement resources.
 			 */
 			rs.close();
-			s.close();
 			System.out.println("Closed result set and statement");
 
 			/*
 			 We end the transaction and the connection.
 			 */
 			conn.commit();
-			conn.close();
 			System.out.println("Committed transaction and closed connection");
 
 		} catch (Throwable e) {
@@ -184,6 +183,16 @@ public class DerbyConnect {
 				printSQLError((SQLException) e);
 			} else {
 				e.printStackTrace();
+			}
+		}finally{
+			try{
+				if(s != null){
+					s.execute("drop table derbyDB");
+					s.close();
+				}
+				conn.close();
+			}catch(Throwable ta){
+				System.out.println("Nothing may i do when sql Exception!");
 			}
 		}
 		System.out.println("SimpleApp finished");

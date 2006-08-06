@@ -40,26 +40,31 @@ public class CameraBaseAttributeTable extends Table {
 	
 	public void update(){
 		if( !isVisible() || this.isDisposed()) return;
-		
+		int itemIndex = 0;
 		setRedraw(false);
-		setItemCount(5);
-		TableItem item = getItem(0);
+		setItemCount(6);
+		TableItem item = getItem(itemIndex++);
 		item.setText(0,"设备名称");
 		item.setText(1,midget.getMidgetIdentify());
 		
-		item = getItem(1);
+		item = getItem(itemIndex++);
+		item.setText(0,"设备地址");
+		if( midget.getIpaddress() != null)
+			item.setText(1,midget.getIpaddress());
+
+		item = getItem(itemIndex++);
 		item.setText(0,"数据最新更新时间");
 		item.setText(1,midget.getStatus());
 
-		item = getItem(2);
+		item = getItem(itemIndex++);
 		item.setText(0,"图像数据更新次数");
 		item.setText(1,Long.toString(midget.imageUpdatetimes));
 	
-		item = getItem(3);
+		item = getItem(itemIndex++);
 		item.setText(0,"GPS数据更新次数");
 		item.setText(1,Long.toString(midget.gpsUpdatetimes));
 
-		item = getItem(4);
+		item = getItem(itemIndex++);
 		item.setText(0,"地理位置");
 		item.setText(1,(midget.gps == null ? "没有获取数据" : midget.gps));
 		

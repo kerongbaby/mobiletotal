@@ -1,4 +1,4 @@
-package com.vicom.mdt;
+package com.vicom.mdt.event;
 
 public class MobileTotalAttribute {
 	

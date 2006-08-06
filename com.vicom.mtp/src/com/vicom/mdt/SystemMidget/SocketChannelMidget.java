@@ -7,8 +7,8 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import org.eclipse.swt.graphics.Image;
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.Presenter.AbstractPresenter;
+import com.vicom.mdt.event.MobileTotalAttribute;
 import com.vicom.mdt.event.MobileTotalEvent;
 import com.vicom.mdt.event.MobileTotaEventPool;
 

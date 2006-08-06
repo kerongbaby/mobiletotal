@@ -1,6 +1,5 @@
 package com.vicom.mdt.event;
 
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.SystemMidget.IMidget;
 
 public class MobileTotalEvent {
@@ -9,8 +8,12 @@ public class MobileTotalEvent {
 	 * 事件类型定义。
 	 */
 	public static final int UNKNOWN				= 0x0;
+
+	// 该类型宣告一个新的Midget已经创建。宣告者是Midget自身，宣告目标是系统监控服务。
 	public static final int NEW_MIDGET			= 0x1;
 	public static final int ATTRIBUTECHANGED	= 0x2;
+
+	// 宣告本Midget已经移出。宣告者是Midget自身，宣告目标是系统监视服务。
 	public static final int REMOVE_MIDGET		= 0x3;
 	public static final int MIDGET_SELECTED		= 0x4;
 	

@@ -9,11 +9,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import com.vicom.mdt.MobileTotalAttribute;
 import com.vicom.mdt.MobileDeviceTotoalPlugin;
 import com.vicom.mdt.Presenter.AbstractPresenter;
 import com.vicom.mdt.SystemMidget.AbstractMidget;
 import com.vicom.mdt.SystemMidget.IMidget;
+import com.vicom.mdt.event.MobileTotalAttribute;
+
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.LightweightSystem;
@@ -21,8 +22,8 @@ import org.eclipse.draw2d.LightweightSystem;
 public class CameraMidget extends AbstractMidget  {
 	private final int MAXCACHEDIMAGES = 4;
 
-	public Integer	position;
 	public String	gps;
+	private	String	ipaddress;
 	private	long	lastActivetime	= 0;
 	public long		lastShowTime	= 0;
 	public long		gpsUpdatetimes  = 0;
@@ -91,9 +92,11 @@ public class CameraMidget extends AbstractMidget  {
 			return;
 		} else if( "gps".equalsIgnoreCase(attribute.name)){
 			GPSData gpsdata = GPSData.createGPSData((String)attribute.object);
-			gps = gpsdata.toString();// processGPSData((String)attribute.object);
+			gps = gpsdata.toString();
 			gpsUpdatetimes++;
 			database.logGPS(this,gpsdata);
+		} else if( "ipaddress".equalsIgnoreCase(attribute.name)){
+			ipaddress = (String)attribute.object;
 		}
 		
 	}
@@ -193,6 +196,10 @@ public class CameraMidget extends AbstractMidget  {
 
 	public void disposeInSceneView() {
 		if( figure != null && eyeView != null) figure.remove(eyeView);
+	}
+
+	public String getIpaddress() {
+		return ipaddress;
 	}
 	
 	

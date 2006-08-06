@@ -24,10 +24,9 @@ public class DatabaseManage {
 				
 				s.execute("create table IMGS(identify varchar(20) NOT NULL, logtime TIMESTAMP, img BLOB)");
 			}catch(SQLException se){
-				se.printStackTrace();
+				//se.printStackTrace();
 				//可能这个表已经建好了。
 			}
-
 			
 			try{
 				//s.execute("drop table GPSDBS");
