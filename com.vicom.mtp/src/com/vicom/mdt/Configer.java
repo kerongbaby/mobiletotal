@@ -24,13 +24,6 @@ public class Configer {
 	
 	static class ServiceThread extends Thread {
 		public void run(){
-			/*
-			 * 构造模型实例。
-			 * 构造ServerPresenter实例。
-			 * 构造HMI baseClientPresenter，并装载需要的ClientPresenter及其Views
-			 * 构造M2MI baseClientPresenter。
-			 * 装载测试需要的TargetObject模拟实例。
-			 */
 			// 启动数据库。
 			startupDatabase();
 			// 启动事件处理线程。
@@ -43,7 +36,7 @@ public class Configer {
 	
 
 	
-	public static void startup(){
+	public synchronized static void startup(){
 		(new ServiceThread()).start();
 	}
 	
@@ -95,7 +88,7 @@ public class Configer {
 		}
 	}
 
-	public static void loadView(MobileDeviceTotalPerspective perspective, IPageLayout layout){
+	public synchronized static void loadView(MobileDeviceTotalPerspective perspective, IPageLayout layout){
 		// 载入组织管理视图。
 		perspective.topLeft.addView(TableListBrowserView.ID);
 		// 取消本视图的关闭功能

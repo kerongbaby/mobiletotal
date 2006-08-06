@@ -23,7 +23,7 @@ public class MobileDeviceTotal {
 	
 	public final static String ID = "MobileDeviceTotal"; 
 	
-	public final static Vector Listerners = new Vector(); 
+	public final static Vector Listeners = new Vector(); 
 	
 	private static MobileDeviceTotal mdt = new MobileDeviceTotal();
 
@@ -31,9 +31,9 @@ public class MobileDeviceTotal {
 		(new eventProcess()).start();
 	}
 	
-	public static void addListener(IPresenter listener){
-		synchronized(Listerners){
-			Listerners.add(listener);
+	public synchronized static void addListener(IPresenter listener){
+		synchronized(Listeners){
+			Listeners.add(listener);
 		}
 	}
 	
@@ -48,12 +48,12 @@ public class MobileDeviceTotal {
 		public void run(){
 			while(true){
 				try{
-					MobileTotalEvent e = MobileTotaEventPool.getEvent();
-					IMidget dest =e.destMidget;
+					MobileTotalEvent event = MobileTotaEventPool.getEvent();
+					IMidget dest =event.destMidget;
 					if( dest != null ){
-						dest.response(e.attribute);
+						dest.response(event.attribute);
 					}
-					fireMidgetChange(e);
+					fireMidgetChange(event);
 				}catch(Exception e){
 					e.printStackTrace();
 				}
@@ -62,21 +62,37 @@ public class MobileDeviceTotal {
 	}
 	
 	// FIXME: 需要更好的处理方法处理header的连接问题，特别是同步问题。
-	synchronized void fireMidgetChange(MobileTotalEvent e){
-		
-		synchronized(Listerners){
-			Iterator i = Listerners.iterator();
-			while(i.hasNext()){
-				AbstractPresenter a = ((AbstractPresenter)i.next());
-				try{
-				Display display = a.getDisplay();
-				if( !display.isDisposed() )
-					display.syncExec(new DisplayThread(a,e));
-				}catch(Exception ex){
-					ex.printStackTrace();
-				}
+	// 在实践中发现，Listener直接同步会出现锁死。不同步又会出现同时修改的问题。
+	synchronized void fireMidgetChange(MobileTotalEvent mtevent){
+		Vector snapshot;
+		synchronized(Listeners){
+			snapshot = (Vector)Listeners.clone();
+		}
+		Iterator listeners = snapshot.iterator();
+		while(listeners.hasNext()){
+			AbstractPresenter presenter = ((AbstractPresenter)listeners.next());
+			try{
+			Display display = presenter.getDisplay();
+			if( !display.isDisposed() )
+				display.syncExec(new DisplayThread(presenter,mtevent));
+			}catch(Exception ex){
+				ex.printStackTrace();
 			}
 		}
+		/*
+		Iterator listeners = Listeners.iterator();
+		while(listeners.hasNext()){
+			AbstractPresenter presenter = ((AbstractPresenter)listeners.next());
+			try{
+			Display display = presenter.getDisplay();
+			if( !display.isDisposed() )
+				display.syncExec(new DisplayThread(presenter,mtevent));
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+		}
+		*/
+		
 	}
 	class DisplayThread extends Thread {
 		AbstractPresenter presenter;

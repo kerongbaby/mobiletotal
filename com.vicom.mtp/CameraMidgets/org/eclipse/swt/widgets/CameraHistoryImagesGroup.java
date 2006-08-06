@@ -18,7 +18,7 @@ public class CameraHistoryImagesGroup extends Group {
 	private	CameraMidget midget;
 	public CameraHistoryImagesGroup(Composite parent, CameraMidget midget) {
 		super(parent, SWT.BORDER);
-		setText("最近"+MAXCACHEDIMAGES+"图片");
+		setText("最近("+MAXCACHEDIMAGES+")张图片");
 		this.midget = midget;
 		
 		GridLayout gridLayout= new GridLayout ();
