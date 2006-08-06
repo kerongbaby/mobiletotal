@@ -23,9 +23,6 @@ public class RisetekHandler extends AbstractHandler implements Handler {
         	resource = resource.substring(prefix.length());
         	try{
         		webHandler webhandler = (webHandler)(Class.forName("com.risetek.webhandle."+resource)).newInstance();
-                ////log.info( "Execute..");
-                //log.info( "Execute.." + resource);
-        		
                 response.sendResponse( HttpConnection.HTTP_OK, "text/html", webhandler.handle(request,response) );
                 return true;
           }catch (IllegalAccessException e) {

@@ -34,6 +34,7 @@ public class ServerSocketEndPoint implements EndPoint, Runnable {
             Thread thread = new Thread( this, endpointName + "[" + port + "] ServerSocketEndPoint" );
             thread.start();
         } catch (IOException e) {
+        	e.printStackTrace();
             //log.debug("IOException ignored", e );
         } catch (NumberFormatException e) {
             //log.debug( "NumberFormatException ignored", e );

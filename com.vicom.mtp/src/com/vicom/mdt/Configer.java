@@ -21,24 +21,30 @@ public class Configer {
 		return DerbyConnect.getConnection();
 	}
 	
-	public static void startup(){
-		/*
-		 * 构造模型实例。
-		 * 构造ServerPresenter实例。
-		 * 构造HMI baseClientPresenter，并装载需要的ClientPresenter及其Views
-		 * 构造M2MI baseClientPresenter。
-		 * 装载测试需要的TargetObject模拟实例。
-		 */
-		// 启动数据库。
-		startupDatabase();
+	
+	static class ServiceThread extends Thread {
+		public void run(){
+			/*
+			 * 构造模型实例。
+			 * 构造ServerPresenter实例。
+			 * 构造HMI baseClientPresenter，并装载需要的ClientPresenter及其Views
+			 * 构造M2MI baseClientPresenter。
+			 * 装载测试需要的TargetObject模拟实例。
+			 */
+			// 启动数据库。
+			startupDatabase();
+			// 启动事件处理线程。
+			MobileDeviceTotal.getInstance();
+			startupCollect();
+			startupEmulatorMT();
+			preLoadMidget();
+		}
+	}
+	
 
-		
-		// 启动事件处理线程。
-		MobileDeviceTotal.getInstance();
-		
-		startupCollect();
-		startupEmulatorMT();
-		preLoadMidget();
+	
+	public static void startup(){
+		(new ServiceThread()).start();
 	}
 	
 	static void startupDatabase(){
@@ -102,12 +108,7 @@ public class Configer {
 		//载入属性视图。
 		perspective.bottom.addView(AttributeView.ID);
 		layout.getViewLayout(AttributeView.ID).setCloseable(false);
-
 		//perspective.topRight.addView(BrowserView.ID);
-		
-		// 视图装载完毕，才能启动其它数据服务，否则会出现事件丢失的情况。
-		Configer.startup();
-
 		
 	}
 	
